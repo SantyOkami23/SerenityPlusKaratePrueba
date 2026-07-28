@@ -1,11 +1,12 @@
 package com.automation.api.interactions.users;
 
+import com.automation.api.config.ApiEndpoints;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.rest.interactions.Get;
 
 /**
- * Screenplay Interaction: retrieves user detail by email via query parameter.
+ * Interacción Screenplay: obtiene el detalle de un usuario por su email vía query param.
  */
 public class GetUserDetailByEmail implements Interaction {
 
@@ -18,7 +19,7 @@ public class GetUserDetailByEmail implements Interaction {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Get.resource("/api/getUserDetailByEmail")
+                Get.resource(ApiEndpoints.GET_USER_DETAIL)
                         .with(request -> request.queryParam("email", email))
         );
     }

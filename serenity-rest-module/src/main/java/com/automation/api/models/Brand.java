@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents a single brand from the AutomationExercise brands API.
+ * Representa una marca individual de la API de marcas de AutomationExercise.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Brand(

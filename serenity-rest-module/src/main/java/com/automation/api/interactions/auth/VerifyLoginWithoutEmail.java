@@ -1,12 +1,13 @@
 package com.automation.api.interactions.auth;
 
+import com.automation.api.config.ApiEndpoints;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.rest.interactions.Post;
 
 /**
- * Screenplay Interaction: attempts login with only password (no email).
- * Expected to return responseCode 400 with missing parameter message.
+ * Interacción Screenplay: intenta login solo con password (sin email).
+ * Se espera responseCode 400 con mensaje de parámetro faltante.
  */
 public class VerifyLoginWithoutEmail implements Interaction {
 
@@ -19,7 +20,7 @@ public class VerifyLoginWithoutEmail implements Interaction {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Post.to("/api/verifyLogin")
+                Post.to(ApiEndpoints.VERIFY_LOGIN)
                         .with(request -> request.formParam("password", password))
         );
     }

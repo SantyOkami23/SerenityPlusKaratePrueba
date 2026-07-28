@@ -1,11 +1,12 @@
 package com.automation.api.interactions.users;
 
+import com.automation.api.config.ApiEndpoints;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.rest.interactions.Delete;
 
 /**
- * Screenplay Interaction: deletes a user account using email and password form params.
+ * Interacción Screenplay: elimina una cuenta de usuario usando email y password como form params.
  */
 public class DeleteUserAccount implements Interaction {
 
@@ -20,7 +21,7 @@ public class DeleteUserAccount implements Interaction {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Delete.from("/api/deleteAccount")
+                Delete.from(ApiEndpoints.DELETE_ACCOUNT)
                         .with(request -> request
                                 .formParam("email", email)
                                 .formParam("password", password))

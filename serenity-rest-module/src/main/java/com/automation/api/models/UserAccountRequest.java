@@ -4,8 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
- * Request model for creating (API 11) and updating (API 13) user accounts.
- * Contains all 17 required form parameters.
+ * Modelo de request para crear (API 11) y actualizar (API 13) cuentas de usuario.
+ * Contiene los 17 campos requeridos como form params.
  */
 @Getter
 @Builder

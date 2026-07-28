@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Generic API response model matching AutomationExercise response structure.
- * All endpoints return a responseCode in the JSON body (HTTP status is always 200).
+ * Modelo genérico de respuesta de la API de AutomationExercise.
+ * Todos los endpoints devuelven un responseCode en el body JSON (el HTTP status siempre es 200).
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ApiResponse(

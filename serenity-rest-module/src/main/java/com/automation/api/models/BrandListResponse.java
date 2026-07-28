@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * Response wrapper for the brands list endpoint.
+ * Wrapper de respuesta para el endpoint de lista de marcas.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record BrandListResponse(

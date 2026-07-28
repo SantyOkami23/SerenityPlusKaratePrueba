@@ -1,12 +1,13 @@
 package com.automation.api.interactions.users;
 
+import com.automation.api.config.ApiEndpoints;
 import com.automation.api.models.UserAccountRequest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.rest.interactions.Post;
 
 /**
- * Screenplay Interaction: creates a new user account with all 17 form params.
+ * Interacción Screenplay: crea una nueva cuenta de usuario con los 17 form params requeridos.
  */
 public class CreateUserAccount implements Interaction {
 
@@ -19,7 +20,7 @@ public class CreateUserAccount implements Interaction {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Post.to("/api/createAccount")
+                Post.to(ApiEndpoints.CREATE_ACCOUNT)
                         .with(request -> request
                                 .formParam("name", userData.getName())
                                 .formParam("email", userData.getEmail())

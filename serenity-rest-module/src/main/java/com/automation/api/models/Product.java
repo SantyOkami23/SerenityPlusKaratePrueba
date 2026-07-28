@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents a single product from the AutomationExercise products API.
+ * Representa un producto individual de la API de productos de AutomationExercise.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Product(
@@ -15,6 +15,9 @@ public record Product(
         @JsonProperty("category") Category category
 ) {
 
+    /**
+     * Categoría del producto con tipo de usuario anidado.
+     */
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record Category(
             @JsonProperty("usertype") UserType usertype,
@@ -22,6 +25,9 @@ public record Product(
     ) {
     }
 
+    /**
+     * Tipo de usuario asociado a la categoría (Women, Men, Kids).
+     */
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record UserType(
             @JsonProperty("usertype") String usertype

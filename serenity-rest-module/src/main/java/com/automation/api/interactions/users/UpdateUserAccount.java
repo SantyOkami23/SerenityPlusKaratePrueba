@@ -1,12 +1,13 @@
 package com.automation.api.interactions.users;
 
+import com.automation.api.config.ApiEndpoints;
 import com.automation.api.models.UserAccountRequest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.rest.interactions.Put;
 
 /**
- * Screenplay Interaction: updates an existing user account with all 17 form params.
+ * Interacción Screenplay: actualiza una cuenta de usuario existente con los 17 form params.
  */
 public class UpdateUserAccount implements Interaction {
 
@@ -19,7 +20,7 @@ public class UpdateUserAccount implements Interaction {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Put.to("/api/updateAccount")
+                Put.to(ApiEndpoints.UPDATE_ACCOUNT)
                         .with(request -> request
                                 .formParam("name", userData.getName())
                                 .formParam("email", userData.getEmail())

@@ -1,11 +1,12 @@
 package com.automation.api.interactions.auth;
 
+import com.automation.api.config.ApiEndpoints;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.rest.interactions.Post;
 
 /**
- * Screenplay Interaction: verifies login with email and password via form params.
+ * Interacción Screenplay: verifica login con email y password vía form params.
  */
 public class VerifyLogin implements Interaction {
 
@@ -20,7 +21,7 @@ public class VerifyLogin implements Interaction {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Post.to("/api/verifyLogin")
+                Post.to(ApiEndpoints.VERIFY_LOGIN)
                         .with(request -> request
                                 .formParam("email", email)
                                 .formParam("password", password))
