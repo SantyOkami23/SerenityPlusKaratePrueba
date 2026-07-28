@@ -20,11 +20,13 @@ public class VerifyLogin implements Interaction {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
+        String encodedEmail = java.net.URLEncoder.encode(email, java.nio.charset.StandardCharsets.UTF_8);
+        String encodedPassword = java.net.URLEncoder.encode(password, java.nio.charset.StandardCharsets.UTF_8);
         actor.attemptsTo(
                 Post.to(ApiEndpoints.VERIFY_LOGIN)
                         .with(request -> request
                                 .header("Content-Type", "application/x-www-form-urlencoded")
-                                .body("email=" + email + "&password=" + password))
+                                .body("email=" + encodedEmail + "&password=" + encodedPassword))
         );
     }
 
