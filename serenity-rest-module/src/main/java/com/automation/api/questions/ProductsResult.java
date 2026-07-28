@@ -3,6 +3,7 @@ package com.automation.api.questions;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
+import io.restassured.path.json.JsonPath;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,8 @@ public class ProductsResult implements Question<List<Map<String, Object>>> {
 
     @Override
     public List<Map<String, Object>> answeredBy(Actor actor) {
-        return SerenityRest.lastResponse().path("products");
+        String body = SerenityRest.lastResponse().asString();
+        return new JsonPath(body).getList("products");
     }
 
     public static ProductsResult fromLastResponse() {

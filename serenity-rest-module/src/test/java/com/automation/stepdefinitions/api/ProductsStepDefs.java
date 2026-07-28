@@ -3,6 +3,8 @@ package com.automation.stepdefinitions.api;
 import com.automation.api.config.ApiEndpoints;
 import com.automation.api.interactions.common.GetResource;
 import com.automation.api.interactions.common.PostToResource;
+import com.automation.api.interactions.common.PutToResource;
+import com.automation.api.interactions.common.DeleteFromResource;
 import com.automation.api.questions.ProductsResult;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -27,6 +29,20 @@ public class ProductsStepDefs {
         );
     }
 
+    @When("envía una petición PUT a la lista de productos")
+    public void enviaUnaPeticionPUTALaListaDeProductos() {
+        theActorInTheSpotlight().attemptsTo(
+                PutToResource.at(ApiEndpoints.PRODUCTS_LIST)
+        );
+    }
+
+    @When("envía una petición DELETE a la lista de productos")
+    public void enviaUnaPeticionDELETEALaListaDeProductos() {
+        theActorInTheSpotlight().attemptsTo(
+                DeleteFromResource.at(ApiEndpoints.PRODUCTS_LIST)
+        );
+    }
+
     @And("la lista de productos no debe estar vacía")
     public void laListaDeProductosNoDebeEstarVacia() {
         theActorInTheSpotlight().should(
@@ -34,10 +50,17 @@ public class ProductsStepDefs {
         );
     }
 
-    @And("cada producto debe tener un ID válido")
-    public void cadaProductoDebeTenerUnIDValido() {
+    @And("cada producto debe tener la estructura completa válida")
+    public void cadaProductoDebeTenerLaEstructuraCompletaValida() {
         theActorInTheSpotlight().should(
-                seeThat("cada producto tiene un ID", ProductsResult.fromLastResponse(), everyItem(hasKey("id")))
+                seeThat("cada producto tiene la estructura esperada", ProductsResult.fromLastResponse(), 
+                        everyItem(allOf(
+                                hasKey("id"),
+                                hasKey("name"),
+                                hasKey("price"),
+                                hasKey("brand"),
+                                hasKey("category")
+                        )))
         );
     }
 }

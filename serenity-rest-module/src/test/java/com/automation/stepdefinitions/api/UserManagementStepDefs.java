@@ -42,27 +42,89 @@ public class UserManagementStepDefs {
     @And("los detalles del usuario coinciden con el email registrado")
     public void losDetallesDelUsuarioCoincidenConElEmailRegistrado() {
         // En AutomationExercise el endpoint de user details envuelve el objeto en "user"
-        String emailFromResponse = SerenityRest.lastResponse().path("user.email");
-        assertThat("El email del usuario retornado no coincide", emailFromResponse, equalTo(currentUserData.getEmail()));
+        String body = net.serenitybdd.rest.SerenityRest.lastResponse().asString();
+        String emailFromResponse = new io.restassured.path.json.JsonPath(body).getString("user.email");
+        org.junit.Assert.assertThat("El email del usuario retornado no coincide", emailFromResponse, org.hamcrest.Matchers.equalTo(currentUserData.getEmail()));
     }
 
     @When("actualiza los datos de la cuenta")
     public void actualizaLosDatosDeLaCuenta() {
-        // Mantener mismo email, pero actualizar todo lo demás
-        UserAccountRequest updatedUserData = UserTestDataGenerator.randomUserWithEmail(currentUserData.getEmail());
-        
+        // Actualizamos solo el nombre para no afectar credenciales ni email
+        currentUserData = currentUserData.toBuilder()
+                .name("Updated Serenity")
+                .build();
         theActorInTheSpotlight().attemptsTo(
-                UpdateUserAccount.withData(updatedUserData)
+                com.automation.api.interactions.users.UpdateUserAccount.withData(currentUserData)
         );
-        
-        // Actualizar referencia local por si lo usamos después
-        currentUserData = updatedUserData;
     }
 
     @When("elimina la cuenta de usuario")
     public void eliminaLaCuentaDeUsuario() {
         theActorInTheSpotlight().attemptsTo(
                 DeleteUserAccount.withCredentials(currentUserData.getEmail(), currentUserData.getPassword())
+        );
+    }
+
+    @And("intenta crear la cuenta de nuevo con el mismo email")
+    public void intentaCrearLaCuentaDeNuevoConElMismoEmail() {
+        theActorInTheSpotlight().attemptsTo(
+                CreateUserAccount.withData(currentUserData)
+        );
+    }
+
+    @When("intenta crear cuenta sin parámetros requeridos")
+    public void intentaCrearCuentaSinParametrosRequeridos() {
+        theActorInTheSpotlight().attemptsTo(
+                net.serenitybdd.screenplay.rest.interactions.Post.to(com.automation.api.config.ApiEndpoints.CREATE_ACCOUNT)
+                        .with(request -> request
+                                .header("Content-Type", "application/x-www-form-urlencoded")
+                                .body("name=TestUserOnly"))
+        );
+    }
+
+    @When("envía una petición GET a crear cuenta")
+    public void enviaUnaPeticionGETACrearCuenta() {
+        theActorInTheSpotlight().attemptsTo(
+                com.automation.api.interactions.common.GetResource.from(com.automation.api.config.ApiEndpoints.CREATE_ACCOUNT)
+        );
+    }
+
+    @When("intenta actualizar cuenta sin parámetro email")
+    public void intentaActualizarCuentaSinParametroEmail() {
+        theActorInTheSpotlight().attemptsTo(
+                net.serenitybdd.screenplay.rest.interactions.Put.to(com.automation.api.config.ApiEndpoints.UPDATE_ACCOUNT)
+                        .with(request -> request
+                                .header("Content-Type", "application/x-www-form-urlencoded")
+                                .body("name=UpdatedNameOnly"))
+        );
+    }
+
+    @When("intenta actualizar una cuenta inexistente")
+    public void intentaActualizarUnaCuentaInexistente() {
+        com.automation.api.models.UserAccountRequest fakeUser = com.automation.api.utils.data.UserTestDataGenerator.randomUserWithEmailAndPassword("no_existo_serenity@test.com", "pass123");
+        theActorInTheSpotlight().attemptsTo(
+                UpdateUserAccount.withData(fakeUser)
+        );
+    }
+
+    @When("consulta los detalles del usuario con email inexistente")
+    public void consultaLosDetallesDelUsuarioConEmailInexistente() {
+        theActorInTheSpotlight().attemptsTo(
+                GetUserDetailByEmail.withEmail("no_existo_serenity@test.com")
+        );
+    }
+
+    @When("consulta los detalles del usuario omitiendo el email")
+    public void consultaLosDetallesDelUsuarioOmitiendoElEmail() {
+        theActorInTheSpotlight().attemptsTo(
+                com.automation.api.interactions.common.GetResource.from(com.automation.api.config.ApiEndpoints.GET_USER_DETAIL)
+        );
+    }
+
+    @When("envía una petición POST a obtener detalles")
+    public void enviaUnaPeticionPOSTAObtenerDetalles() {
+        theActorInTheSpotlight().attemptsTo(
+                com.automation.api.interactions.common.PostToResource.at(com.automation.api.config.ApiEndpoints.GET_USER_DETAIL)
         );
     }
 }

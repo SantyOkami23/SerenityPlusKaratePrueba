@@ -17,3 +17,16 @@ Feature: Search Product API
     When realiza una búsqueda sin el parámetro requerido
     Then recibe un código de respuesta 400
     And el mensaje de respuesta contiene "search_product parameter is missing"
+
+  @positive
+  Scenario: Buscar producto que no existe en el catálogo
+    Given el cliente de AutomationExercise está listo
+    When busca el producto con término "ProductoInexistente999"
+    Then recibe un código de respuesta 200
+
+  @negative
+  Scenario: Enviar método GET no soportado a búsqueda de productos
+    Given el cliente de AutomationExercise está listo
+    When envía una petición GET a la búsqueda de productos
+    Then recibe un código de respuesta 405
+    And el mensaje de respuesta es "This request method is not supported."

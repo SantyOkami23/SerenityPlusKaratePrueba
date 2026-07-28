@@ -31,3 +31,24 @@ Feature: Authentication API
     When intenta iniciar sesión con credenciales inválidas
     Then recibe un código de respuesta 404
     And el mensaje de respuesta es "User not found!"
+
+  @negative
+  Scenario: Verificar login sin enviar el parámetro password
+    Given el cliente de AutomationExercise está listo
+    When intenta iniciar sesión omitiendo el password
+    Then recibe un código de respuesta 400
+    And el mensaje de respuesta contiene "email or password parameter is missing"
+
+  @negative
+  Scenario: Verificar login omitiendo ambos parámetros
+    Given el cliente de AutomationExercise está listo
+    When intenta iniciar sesión omitiendo ambos parámetros
+    Then recibe un código de respuesta 400
+    And el mensaje de respuesta contiene "email or password parameter is missing"
+
+  @negative
+  Scenario: Verificar login con formato de email inválido
+    Given el cliente de AutomationExercise está listo
+    When intenta iniciar sesión con formato de email inválido
+    Then recibe un código de respuesta 404
+    And el mensaje de respuesta es "User not found!"

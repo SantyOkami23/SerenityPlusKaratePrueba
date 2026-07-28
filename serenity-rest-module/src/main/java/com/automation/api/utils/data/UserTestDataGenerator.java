@@ -47,11 +47,11 @@ public class UserTestDataGenerator {
     /**
      * Genera un UserAccountRequest con un email específico (útil para tests de update).
      */
-    public static UserAccountRequest randomUserWithEmail(String email) {
+    public static UserAccountRequest randomUserWithEmailAndPassword(String email, String password) {
         return UserAccountRequest.builder()
                 .name(FAKER.name().username())
                 .email(email)
-                .password(FAKER.internet().password(8, 16, true, true))
+                .password(password)
                 .title(TITLES[FAKER.random().nextInt(TITLES.length)])
                 .birthDate(String.valueOf(FAKER.number().numberBetween(1, 28)))
                 .birthMonth(String.valueOf(FAKER.number().numberBetween(1, 12)))

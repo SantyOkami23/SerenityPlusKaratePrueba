@@ -8,7 +8,7 @@ import lombok.Getter;
  * Contiene los 17 campos requeridos como form params.
  */
 @Getter
-@Builder
+@Builder(toBuilder = true)
 public class UserAccountRequest {
 
     private final String name;

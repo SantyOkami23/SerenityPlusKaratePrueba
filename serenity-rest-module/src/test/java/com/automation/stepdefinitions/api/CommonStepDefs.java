@@ -10,6 +10,9 @@ import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import net.thucydides.model.environment.SystemEnvironmentVariables;
 import net.thucydides.model.util.EnvironmentVariables;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.automation.api.config.ApiEndpoints;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
@@ -19,6 +22,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class CommonStepDefs {
 
+    private static final Logger logger = LoggerFactory.getLogger(CommonStepDefs.class);
+
     @Before
     public void setTheStage() {
         OnStage.setTheStage(new OnlineCast());
@@ -27,8 +32,17 @@ public class CommonStepDefs {
     @Given("el cliente de AutomationExercise está listo")
     public void elClienteDeAutomationExerciseEstaListo() {
         EnvironmentVariables environmentVariables = SystemEnvironmentVariables.createEnvironmentVariables();
-        String baseUrl = environmentVariables.getProperty("restapi.baseurl", "https://automationexercise.com");
+        String baseUrl = environmentVariables.getProperty("restapi.baseurl", ApiEndpoints.BASE_URL);
         
+        logger.info("Inicializando cliente con baseUrl: {}", baseUrl);
+
+        // Evitar que SerenityRest agregue '; charset=ISO-8859-1' que rompe el API de AutomationExercise
+        net.serenitybdd.rest.SerenityRest.setDefaultConfig(
+                net.serenitybdd.rest.SerenityRest.config()
+                        .encoderConfig(io.restassured.config.EncoderConfig.encoderConfig()
+                                .appendDefaultContentCharsetToContentTypeIfUndefined(false))
+        );
+
         theActorCalled("Cliente").whoCan(CallAnApi.at(baseUrl));
     }
 

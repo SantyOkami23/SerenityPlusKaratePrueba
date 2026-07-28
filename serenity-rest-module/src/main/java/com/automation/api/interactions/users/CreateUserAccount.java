@@ -19,26 +19,30 @@ public class CreateUserAccount implements Interaction {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
+        java.util.Map<String, String> map = new java.util.HashMap<>();
+        map.put("name", userData.getName());
+        map.put("email", userData.getEmail());
+        map.put("password", userData.getPassword());
+        map.put("title", userData.getTitle());
+        map.put("birth_date", userData.getBirthDate());
+        map.put("birth_month", userData.getBirthMonth());
+        map.put("birth_year", userData.getBirthYear());
+        map.put("firstname", userData.getFirstname());
+        map.put("lastname", userData.getLastname());
+        map.put("company", userData.getCompany());
+        map.put("address1", userData.getAddress1());
+        map.put("address2", userData.getAddress2());
+        map.put("country", userData.getCountry());
+        map.put("zipcode", userData.getZipcode());
+        map.put("state", userData.getState());
+        map.put("city", userData.getCity());
+        map.put("mobile_number", userData.getMobileNumber());
+
         actor.attemptsTo(
                 Post.to(ApiEndpoints.CREATE_ACCOUNT)
                         .with(request -> request
-                                .formParam("name", userData.getName())
-                                .formParam("email", userData.getEmail())
-                                .formParam("password", userData.getPassword())
-                                .formParam("title", userData.getTitle())
-                                .formParam("birth_date", userData.getBirthDate())
-                                .formParam("birth_month", userData.getBirthMonth())
-                                .formParam("birth_year", userData.getBirthYear())
-                                .formParam("firstname", userData.getFirstname())
-                                .formParam("lastname", userData.getLastname())
-                                .formParam("company", userData.getCompany())
-                                .formParam("address1", userData.getAddress1())
-                                .formParam("address2", userData.getAddress2())
-                                .formParam("country", userData.getCountry())
-                                .formParam("zipcode", userData.getZipcode())
-                                .formParam("state", userData.getState())
-                                .formParam("city", userData.getCity())
-                                .formParam("mobile_number", userData.getMobileNumber()))
+                                .header("Content-Type", "application/x-www-form-urlencoded")
+                                .body(com.automation.api.utils.UrlEncoderUtils.encodeMap(map)))
         );
     }
 

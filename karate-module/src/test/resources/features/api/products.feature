@@ -11,12 +11,28 @@ Feature: Products API Tests
     Then status 200
     And match response.responseCode == 200
     And match response.products != '#[0]'
-    And match each response.products contains { id: '#number', name: '#string' }
+    And match each response.products contains { id: '#number', name: '#string', price: '#string', brand: '#string', category: '#object' }
 
   @negative
   Scenario: Enviar método POST no soportado a la lista de productos
     Given path '/api/productsList'
     When method post
+    Then status 200
+    And match response.responseCode == 405
+    And match response.message == 'This request method is not supported.'
+
+  @negative
+  Scenario: Enviar método PUT no soportado a la lista de productos
+    Given path '/api/productsList'
+    When method put
+    Then status 200
+    And match response.responseCode == 405
+    And match response.message == 'This request method is not supported.'
+
+  @negative
+  Scenario: Enviar método DELETE no soportado a la lista de productos
+    Given path '/api/productsList'
+    When method delete
     Then status 200
     And match response.responseCode == 405
     And match response.message == 'This request method is not supported.'

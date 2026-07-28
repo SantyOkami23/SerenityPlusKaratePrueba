@@ -20,3 +20,19 @@ Feature: Brands API Tests
     Then status 200
     And match response.responseCode == 405
     And match response.message == 'This request method is not supported.'
+
+  @negative
+  Scenario: Enviar método POST no soportado a la lista de marcas
+    Given path '/api/brandsList'
+    When method post
+    Then status 200
+    And match response.responseCode == 405
+    And match response.message == 'This request method is not supported.'
+
+  @negative
+  Scenario: Enviar método DELETE no soportado a la lista de marcas
+    Given path '/api/brandsList'
+    When method delete
+    Then status 200
+    And match response.responseCode == 405
+    And match response.message == 'This request method is not supported.'

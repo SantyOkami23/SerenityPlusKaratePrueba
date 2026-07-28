@@ -18,3 +18,17 @@ Feature: Brands API
     When envía una petición PUT a la lista de marcas
     Then recibe un código de respuesta 405
     And el mensaje de respuesta es "This request method is not supported."
+
+  @negative
+  Scenario: Enviar método POST no soportado a la lista de marcas
+    Given el cliente de AutomationExercise está listo
+    When envía una petición POST a la lista de marcas
+    Then recibe un código de respuesta 405
+    And el mensaje de respuesta es "This request method is not supported."
+
+  @negative
+  Scenario: Enviar método DELETE no soportado a la lista de marcas
+    Given el cliente de AutomationExercise está listo
+    When envía una petición DELETE a la lista de marcas
+    Then recibe un código de respuesta 405
+    And el mensaje de respuesta es "This request method is not supported."

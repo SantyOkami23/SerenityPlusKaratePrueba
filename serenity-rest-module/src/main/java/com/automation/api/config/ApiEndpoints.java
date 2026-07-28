@@ -6,6 +6,8 @@ package com.automation.api.config;
  */
 public final class ApiEndpoints {
 
+    public static final String BASE_URL = "https://automationexercise.com";
+
     private ApiEndpoints() {
         // Clase de constantes — no instanciable
     }

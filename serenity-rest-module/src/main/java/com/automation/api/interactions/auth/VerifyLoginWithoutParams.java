@@ -6,15 +6,12 @@ import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.rest.interactions.Post;
 
 /**
- * Interacción Screenplay: intenta login solo con password (sin email).
+ * Interacción Screenplay: intenta login sin email ni password.
  * Se espera responseCode 400 con mensaje de parámetro faltante.
  */
-public class VerifyLoginWithoutEmail implements Interaction {
+public class VerifyLoginWithoutParams implements Interaction {
 
-    private final String password;
-
-    public VerifyLoginWithoutEmail(String password) {
-        this.password = password;
+    public VerifyLoginWithoutParams() {
     }
 
     @Override
@@ -22,12 +19,11 @@ public class VerifyLoginWithoutEmail implements Interaction {
         actor.attemptsTo(
                 Post.to(ApiEndpoints.VERIFY_LOGIN)
                         .with(request -> request
-                                .header("Content-Type", "application/x-www-form-urlencoded")
-                                .body("password=" + password))
+                                .header("Content-Type", "application/x-www-form-urlencoded"))
         );
     }
 
-    public static VerifyLoginWithoutEmail withPassword(String password) {
-        return new VerifyLoginWithoutEmail(password);
+    public static VerifyLoginWithoutParams perform() {
+        return new VerifyLoginWithoutParams();
     }
 }

@@ -10,11 +10,25 @@ Feature: Products API
     When solicita la lista completa de productos
     Then recibe un código de respuesta 200
     And la lista de productos no debe estar vacía
-    And cada producto debe tener un ID válido
+    And cada producto debe tener la estructura completa válida
 
   @negative
   Scenario: Enviar método POST no soportado a la lista de productos
     Given el cliente de AutomationExercise está listo
     When envía una petición POST a la lista de productos
+    Then recibe un código de respuesta 405
+    And el mensaje de respuesta es "This request method is not supported."
+
+  @negative
+  Scenario: Enviar método PUT no soportado a la lista de productos
+    Given el cliente de AutomationExercise está listo
+    When envía una petición PUT a la lista de productos
+    Then recibe un código de respuesta 405
+    And el mensaje de respuesta es "This request method is not supported."
+
+  @negative
+  Scenario: Enviar método DELETE no soportado a la lista de productos
+    Given el cliente de AutomationExercise está listo
+    When envía una petición DELETE a la lista de productos
     Then recibe un código de respuesta 405
     And el mensaje de respuesta es "This request method is not supported."

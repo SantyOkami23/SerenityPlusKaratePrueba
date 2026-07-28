@@ -23,8 +23,8 @@ public class DeleteUserAccount implements Interaction {
         actor.attemptsTo(
                 Delete.from(ApiEndpoints.DELETE_ACCOUNT)
                         .with(request -> request
-                                .formParam("email", email)
-                                .formParam("password", password))
+                                .header("Content-Type", "application/x-www-form-urlencoded")
+                                .body("email=" + email + "&password=" + password))
         );
     }
 

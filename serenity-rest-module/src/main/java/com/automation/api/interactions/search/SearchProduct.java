@@ -21,7 +21,10 @@ public class SearchProduct implements Interaction {
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
                 Post.to(ApiEndpoints.SEARCH_PRODUCT)
-                        .with(request -> request.formParam("search_product", searchTerm))
+                        .with(request -> request
+                                .log().all()
+                                .header("Content-Type", "application/x-www-form-urlencoded")
+                                .body("search_product=" + searchTerm))
         );
     }
 

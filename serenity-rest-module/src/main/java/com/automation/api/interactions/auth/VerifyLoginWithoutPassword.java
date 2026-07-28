@@ -4,31 +4,33 @@ import com.automation.api.config.ApiEndpoints;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.rest.interactions.Post;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
- * Interacción Screenplay: verifica login con email y password vía form params.
+ * Interacción Screenplay: intenta login solo con email (sin password).
+ * Se espera responseCode 400 con mensaje de parámetro faltante.
  */
-public class VerifyLogin implements Interaction {
+public class VerifyLoginWithoutPassword implements Interaction {
 
     private final String email;
-    private final String password;
 
-    public VerifyLogin(String email, String password) {
+    public VerifyLoginWithoutPassword(String email) {
         this.email = email;
-        this.password = password;
     }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
+        String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
         actor.attemptsTo(
                 Post.to(ApiEndpoints.VERIFY_LOGIN)
                         .with(request -> request
                                 .header("Content-Type", "application/x-www-form-urlencoded")
-                                .body("email=" + email + "&password=" + password))
+                                .body("email=" + encodedEmail))
         );
     }
 
-    public static VerifyLogin withCredentials(String email, String password) {
-        return new VerifyLogin(email, password);
+    public static VerifyLoginWithoutPassword withEmail(String email) {
+        return new VerifyLoginWithoutPassword(email);
     }
 }
