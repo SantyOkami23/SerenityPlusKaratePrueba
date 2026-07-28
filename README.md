@@ -68,11 +68,21 @@ A continuación se muestran evidencias de la correcta ejecución de todos los es
 ### Reporte de Karate DSL
 ![Reporte de Karate DSL](assets/karate-report.png)
 
-## Directivas de Inteligencia Artificial (Agents)
+## Documentación del Proyecto
 
-Este proyecto cuenta con directivas en la carpeta `.agents/` para guiar a los asistentes de IA durante la extensión del código:
-- **`AGENTS.md`**: Reglas de negocio, estándares de nombrado, commits y Clean Code.
-- **`skills/api-automation/SKILL.md`**: Contexto del framework, patrones de arquitectura de Screenplay, y uso de Karate DSL para que la IA actúe como Automation Engineer respetando el estilo del equipo.
+Para entender a fondo la estrategia, configuración y directivas de este repositorio, te invitamos a leer los siguientes documentos clave:
+
+### 1. Plan de Pruebas
+- **[`docs/PLAN_DE_PRUEBAS.md`](docs/PLAN_DE_PRUEBAS.md)**: Contiene el alcance detallado, los objetivos, la estrategia de datos (DataFaker), la matriz de trazabilidad y la lista exhaustiva de todos los casos de prueba mapeados para las 14 APIs cubiertas. Es el documento base de calidad del proyecto.
+
+### 2. Directivas de Inteligencia Artificial (Agents)
+Este proyecto ha sido configurado para desarrollo asistido por IA (Antigravity/Gemini). Las directivas viven en `.agents/`:
+- **[`.agents/AGENTS.md`](.agents/AGENTS.md)**: Define las reglas estrictas de negocio, arquitectura SOLID, Clean Code, estándares de nombrado, convenciones de *commits* y prohibición de anti-patrones.
+- **[`.agents/skills/api-automation/SKILL.md`](.agents/skills/api-automation/SKILL.md)**: Brinda a la IA el contexto profundo sobre los frameworks (Serenity y Karate), para que actúe como Automation Engineer respetando el estilo del equipo.
+
+### 3. Configuración de Integración Continua (CI/CD)
+- **[`.github/workflows/api-tests.yml`](.github/workflows/api-tests.yml)**: Archivo YAML que define el pipeline automatizado en GitHub Actions (ejecuta tests y guarda artefactos tras cada push a la rama `master`).
+- **[`Jenkinsfile`](Jenkinsfile)**: Script Groovy (Pipeline) preparado para ejecutar la suite completa en entornos locales y empresariales con Windows (`bat`), gestionando herramientas como `maven-3` y recolectando los reportes a través de *ArchiveArtifacts*.
 
 ## Integración Continua (CI/CD)
 
