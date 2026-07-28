@@ -58,6 +58,16 @@ mvn clean test -pl karate-module
 ```
 Los reportes de Karate se generarán en: `karate-module/target/karate-reports/karate-summary.html`
 
+## Reportes de Pruebas (Evidencias)
+
+A continuación se muestran evidencias de la correcta ejecución de todos los escenarios de prueba en ambos frameworks:
+
+### Reporte de Serenity BDD
+![Reporte de Serenity BDD](assets/serenity-report.png)
+
+### Reporte de Karate DSL
+![Reporte de Karate DSL](assets/karate-report.png)
+
 ## Directivas de Inteligencia Artificial (Agents)
 
 Este proyecto cuenta con directivas en la carpeta `.agents/` para guiar a los asistentes de IA durante la extensión del código:
