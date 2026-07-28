@@ -27,14 +27,7 @@ pipeline {
             }
             post {
                 always {
-                    publishHTML(target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'serenity-rest-module/target/site/serenity',
-                        reportFiles: 'index.html',
-                        reportName: 'Serenity BDD Report'
-                    ])
+                    archiveArtifacts artifacts: 'serenity-rest-module/target/site/serenity/**/*', allowEmptyArchive: true
                 }
             }
         }
@@ -47,14 +40,7 @@ pipeline {
             }
             post {
                 always {
-                    publishHTML(target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'karate-module/target/karate-reports',
-                        reportFiles: 'karate-summary.html',
-                        reportName: 'Karate Test Report'
-                    ])
+                    archiveArtifacts artifacts: 'karate-module/target/karate-reports/**/*', allowEmptyArchive: true
                 }
             }
         }
