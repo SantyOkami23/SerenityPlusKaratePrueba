@@ -63,3 +63,15 @@ Los reportes de Karate se generarán en: `karate-module/target/karate-reports/ka
 Este proyecto cuenta con directivas en la carpeta `.agents/` para guiar a los asistentes de IA durante la extensión del código:
 - **`AGENTS.md`**: Reglas de negocio, estándares de nombrado, commits y Clean Code.
 - **`skills/api-automation/SKILL.md`**: Contexto del framework, patrones de arquitectura de Screenplay, y uso de Karate DSL para que la IA actúe como Automation Engineer respetando el estilo del equipo.
+
+## 🔄 Integración Continua (CI/CD)
+
+El proyecto está configurado para ejecutarse automáticamente en el flujo de CI/CD.
+
+Cada vez que se hace un *push* a la rama `master`, **GitHub Actions** dispara automáticamente la ejecución de todas las pruebas (tanto de Serenity como de Karate). Una vez finalizadas, los reportes en formato HTML se empaquetan y se generan como artefactos descargables (Artifacts) directamente en la plataforma.
+
+A continuación se muestran evidencias de las ejecuciones automáticas en GitHub Actions:
+
+![Ejecución Exitosa en GitHub Actions](assets/github-actions-run.png)
+<br/>
+![Reportes generados como Artifacts](assets/github-actions-artifacts.png)
