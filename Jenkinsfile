@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'maven-3' 
+        jdk 'jdk-17'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -10,14 +15,14 @@ pipeline {
         
         stage('Clean Workspace') {
             steps {
-                bat 'C:\\Users\\PC\\Downloads\\PruebaTecnicaOpcionUno\\maven\\bin\\mvn clean'
+                bat 'mvn clean'
             }
         }
 
         stage('Execute Serenity API Tests') {
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    bat 'C:\\Users\\PC\\Downloads\\PruebaTecnicaOpcionUno\\maven\\bin\\mvn verify -pl serenity-rest-module'
+                    bat 'mvn verify -pl serenity-rest-module'
                 }
             }
             post {
@@ -37,7 +42,7 @@ pipeline {
         stage('Execute Karate DSL Tests') {
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    bat 'C:\\Users\\PC\\Downloads\\PruebaTecnicaOpcionUno\\maven\\bin\\mvn test -pl karate-module'
+                    bat 'mvn test -pl karate-module'
                 }
             }
             post {
