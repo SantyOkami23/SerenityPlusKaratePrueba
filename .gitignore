@@ -1,0 +1,66 @@
+# ═══════════════════════════════════════════════════════════
+# Build & Compilation
+# ═══════════════════════════════════════════════════════════
+target/
+*.class
+*.jar
+*.war
+
+# ═══════════════════════════════════════════════════════════
+# Maven
+# ═══════════════════════════════════════════════════════════
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/MavenWrapperDownloader.java
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# ═══════════════════════════════════════════════════════════
+# IDE
+# ═══════════════════════════════════════════════════════════
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.vscode/
+*.code-workspace
+.factorypath
+.springBeans
+nbproject/
+*.swp
+
+# ═══════════════════════════════════════════════════════════
+# OS
+# ═══════════════════════════════════════════════════════════
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ═══════════════════════════════════════════════════════════
+# Reports (generated, not committed)
+# ═══════════════════════════════════════════════════════════
+**/target/site/serenity/
+**/target/karate-reports/
+**/target/surefire-reports/
+**/target/failsafe-reports/
+
+# ═══════════════════════════════════════════════════════════
+# Logs
+# ═══════════════════════════════════════════════════════════
+*.log
+logs/
+
+# ═══════════════════════════════════════════════════════════
+# Misc
+# ═══════════════════════════════════════════════════════════
+*.tmp
+*.bak
+*.orig
