@@ -10,14 +10,14 @@ pipeline {
         
         stage('Clean Workspace') {
             steps {
-                bat 'mvn clean'
+                bat 'C:\\Users\\PC\\Downloads\\PruebaTecnicaOpcionUno\\maven\\bin\\mvn clean'
             }
         }
 
         stage('Execute Serenity API Tests') {
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    bat 'mvn verify -pl serenity-rest-module'
+                    bat 'C:\\Users\\PC\\Downloads\\PruebaTecnicaOpcionUno\\maven\\bin\\mvn verify -pl serenity-rest-module'
                 }
             }
             post {
@@ -37,7 +37,7 @@ pipeline {
         stage('Execute Karate DSL Tests') {
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    bat 'mvn test -pl karate-module'
+                    bat 'C:\\Users\\PC\\Downloads\\PruebaTecnicaOpcionUno\\maven\\bin\\mvn test -pl karate-module'
                 }
             }
             post {
